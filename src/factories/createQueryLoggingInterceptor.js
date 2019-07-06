@@ -3,6 +3,10 @@
 import type {
   InterceptorType
 } from 'slonik';
+import {
+  filter,
+  map
+} from 'inline-loops.macro';
 import prettyMs from 'pretty-ms';
 import {
   getAutoExplainPayload,
@@ -57,14 +61,15 @@ export default (userConfiguration?: UserConfigurationType): InterceptorType => {
       let stackTrace;
 
       if (context.stackTrace) {
-        stackTrace = context.stackTrace
-          .filter((callSite) => {
+        stackTrace = map(
+          filter(context.stackTrace, (callSite) => {
             // Hide the internal call sites.
             return callSite.fileName !== null && !callSite.fileName.includes('slonik') && !callSite.fileName.includes('next_tick');
-          })
-          .map((callSite) => {
+          }),
+          (callSite) => {
             return stringifyCallSite(callSite);
-          });
+          }
+        );
       }
 
       context.log.debug({
