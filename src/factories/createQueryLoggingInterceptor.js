@@ -1,5 +1,6 @@
 // @flow
 
+import serializeError from 'serialize-error';
 import type {
   InterceptorType
 } from 'slonik';
@@ -77,6 +78,11 @@ export default (userConfiguration?: UserConfigurationType): InterceptorType => {
         stackTrace,
         values: configuration.logValues ? query.values : undefined
       }, 'executing query');
+    },
+    queryExecutionError: (context, query, error) => {
+      context.log.error({
+        error: serializeError(error)
+      }, 'query execution produced an error');
     }
   };
 };
