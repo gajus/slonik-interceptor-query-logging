@@ -73,10 +73,22 @@ export default (userConfiguration?: UserConfigurationType): InterceptorType => {
         );
       }
 
+      let values;
+
+      if (configuration.logValues) {
+        values = map(query.values, (value) => {
+          if (Buffer.isBuffer(value)) {
+            return '[Buffer ' + value.byteLength + ']';
+          }
+
+          return value;
+        });
+      }
+
       context.log.debug({
         sql: query.sql,
         stackTrace,
-        values: configuration.logValues ? query.values : undefined,
+        values,
       }, 'executing query');
     },
     queryExecutionError: (context, query, error) => {
