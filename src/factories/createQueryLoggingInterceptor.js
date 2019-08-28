@@ -2,23 +2,23 @@
 
 import serializeError from 'serialize-error';
 import type {
-  InterceptorType
+  InterceptorType,
 } from 'slonik';
 import {
   filter,
-  map
+  map,
 } from 'inline-loops.macro';
 import prettyMs from 'pretty-ms';
 import {
   getAutoExplainPayload,
-  isAutoExplainJsonMessage
+  isAutoExplainJsonMessage,
 } from '../utilities';
 
 /**
  * @property logValues Dictates whether to include parameter values used to execute the query. (default: true)
  */
 type UserConfigurationType = {|
-  +logValues: boolean
+  +logValues: boolean,
 |};
 
 const stringifyCallSite = (callSite) => {
@@ -26,13 +26,13 @@ const stringifyCallSite = (callSite) => {
 };
 
 const defaultConfiguration = {
-  logValues: true
+  logValues: true,
 };
 
 export default (userConfiguration?: UserConfigurationType): InterceptorType => {
   const configuration = {
     ...defaultConfiguration,
-    ...userConfiguration
+    ...userConfiguration,
   };
 
   return {
@@ -46,14 +46,14 @@ export default (userConfiguration?: UserConfigurationType): InterceptorType => {
       for (const notice of result.notices) {
         if (isAutoExplainJsonMessage(notice.message)) {
           context.log.info({
-            autoExplain: getAutoExplainPayload(notice.message)
+            autoExplain: getAutoExplainPayload(notice.message),
           }, 'auto explain');
         }
       }
 
       context.log.debug({
         executionTime: prettyMs(Number(process.hrtime.bigint() - context.queryInputTime) / 1000000),
-        rowCount
+        rowCount,
       }, 'query execution result');
 
       return result;
@@ -76,13 +76,13 @@ export default (userConfiguration?: UserConfigurationType): InterceptorType => {
       context.log.debug({
         sql: query.sql,
         stackTrace,
-        values: configuration.logValues ? query.values : undefined
+        values: configuration.logValues ? query.values : undefined,
       }, 'executing query');
     },
     queryExecutionError: (context, query, error) => {
       context.log.error({
-        error: serializeError(error)
+        error: serializeError(error),
       }, 'query execution produced an error');
-    }
+    },
   };
 };

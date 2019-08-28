@@ -1,5 +1,5 @@
 // @flow
 
 export {
-  createQueryLoggingInterceptor
+  createQueryLoggingInterceptor,
 } from './factories';

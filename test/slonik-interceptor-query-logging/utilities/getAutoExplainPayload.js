@@ -5,7 +5,7 @@ import getAutoExplainPayload from '../../../src/utilities/getAutoExplainPayload'
 
 test('extracts JSON from the message', (t) => {
   t.deepEqual(getAutoExplainPayload('duration: {"foo":"bar"}'), {
-    foo: 'bar'
+    foo: 'bar',
   });
 });
 

@@ -1,7 +1,7 @@
 // @flow
 
 import {
-  extractJson
+  extractJson,
 } from 'crack-json';
 
 export default (noticeMessage: string) => {
