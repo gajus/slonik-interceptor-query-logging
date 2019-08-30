@@ -31,6 +31,8 @@ type UserConfigurationType = {|
 
 ## Example usage
 
+Note: You must export `ROARR_LOG=true` environment variable for logs to be printed. Refer to [Roarr](https://github.com/gajus/roarr) documentation for more information.
+
 ```js
 import {
   createPool
