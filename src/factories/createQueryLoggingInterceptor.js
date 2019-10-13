@@ -1,6 +1,8 @@
 // @flow
 
-import serializeError from 'serialize-error';
+import {
+  serializeError,
+} from 'serialize-error';
 import type {
   InterceptorType,
 } from 'slonik';
