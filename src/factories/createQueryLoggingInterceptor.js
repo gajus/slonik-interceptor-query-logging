@@ -71,7 +71,7 @@ export default (userConfiguration?: UserConfigurationType): InterceptorType => {
           }),
           (callSite) => {
             return stringifyCallSite(callSite);
-          }
+          },
         );
       }
 
