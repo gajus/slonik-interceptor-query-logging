@@ -92,11 +92,15 @@ export default (userConfiguration?: UserConfigurationType): InterceptorType => {
         stackTrace,
         values,
       }, 'executing query');
+
+      return null;
     },
     queryExecutionError: (context, query, error) => {
       context.log.error({
         error: serializeError(error),
       }, 'query execution produced an error');
+
+      return null;
     },
   };
 };
