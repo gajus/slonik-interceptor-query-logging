@@ -58,7 +58,7 @@ export default (userConfiguration?: UserConfigurationType): InterceptorType => {
         rowCount,
       }, 'query execution result');
 
-      return result;
+      return null;
     },
     beforeQueryExecution: async (context, query) => {
       let stackTrace;

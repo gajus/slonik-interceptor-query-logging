@@ -22,7 +22,7 @@
     "crack-json": "^1.2.1",
     "pretty-ms": "^5.0.0",
     "serialize-error": "^5.0.0",
-    "slonik": "^19.5.0"
+    "slonik": "^19.7.0"
   },
   "description": "Logs Slonik queries.",
   "devDependencies": {
