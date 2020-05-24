@@ -13,7 +13,7 @@ Logs [Slonik](https://github.com/gajus/slonik) queries.
 ```js
 import {
   createQueryLoggingInterceptor
-} from 'slonik';
+} from 'slonik-interceptor-query-logging';
 
 ```
 
