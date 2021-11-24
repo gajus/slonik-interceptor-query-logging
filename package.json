@@ -20,9 +20,6 @@
     "pretty-ms": "^7.0.1",
     "serialize-error": "^9.0.0"
   },
-  "peerDependencies": {
-    "slonik": ">=25.1.2"
-  },
   "description": "Logs Slonik queries.",
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
@@ -59,6 +56,9 @@
   "license": "BSD-3-Clause",
   "main": "./dist/index.js",
   "name": "slonik-interceptor-query-logging",
+  "peerDependencies": {
+    "slonik": ">=25.1.2"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/gajus/slonik-interceptor-query-logging"
@@ -68,5 +68,6 @@
     "lint": "eslint ./src ./test && tsc --noEmit",
     "test": "NODE_ENV=test nyc ava --verbose --serial"
   },
+  "typings": "./dist/src/index.d.ts",
   "version": "1.1.0"
 }
