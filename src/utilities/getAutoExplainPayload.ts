@@ -1,10 +1,8 @@
-// @flow
-
 import {
   extractJson,
 } from 'crack-json';
 
-export default (noticeMessage: string) => {
+export const getAutoExplainPayload = (noticeMessage: string) => {
   const matches = extractJson(noticeMessage);
 
   if (matches.length === 0) {

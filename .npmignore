@@ -2,4 +2,3 @@ test
 coverage
 .*
 *.log
-!.flowconfig

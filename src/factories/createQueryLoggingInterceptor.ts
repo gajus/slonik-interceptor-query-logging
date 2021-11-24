@@ -1,16 +1,10 @@
-// @flow
-
+import prettyMs from 'pretty-ms';
 import {
   serializeError,
 } from 'serialize-error';
 import type {
   InterceptorType,
 } from 'slonik';
-import {
-  filter,
-  map,
-} from 'inline-loops.macro';
-import prettyMs from 'pretty-ms';
 import {
   getAutoExplainPayload,
   isAutoExplainJsonMessage,
@@ -19,9 +13,9 @@ import {
 /**
  * @property logValues Dictates whether to include parameter values used to execute the query. (default: true)
  */
-type UserConfigurationType = {|
-  +logValues: boolean,
-|};
+type UserConfigurationType = {
+  logValues: boolean,
+};
 
 const stringifyCallSite = (callSite) => {
   return (callSite.fileName || '') + ':' + callSite.lineNumber + ':' + callSite.columnNumber;
@@ -31,7 +25,7 @@ const defaultConfiguration = {
   logValues: true,
 };
 
-export default (userConfiguration?: UserConfigurationType): InterceptorType => {
+export const createQueryLoggingInterceptor = (userConfiguration?: UserConfigurationType): InterceptorType => {
   const configuration = {
     ...defaultConfiguration,
     ...userConfiguration,
@@ -54,7 +48,7 @@ export default (userConfiguration?: UserConfigurationType): InterceptorType => {
       }
 
       context.log.debug({
-        executionTime: prettyMs(Number(process.hrtime.bigint() - context.queryInputTime) / 1000000),
+        executionTime: prettyMs(Number(process.hrtime.bigint() - BigInt(context.queryInputTime)) / 1_000_000),
         rowCount,
       }, 'query execution result');
 
@@ -64,27 +58,28 @@ export default (userConfiguration?: UserConfigurationType): InterceptorType => {
       let stackTrace;
 
       if (context.stackTrace) {
-        stackTrace = map(
-          filter(context.stackTrace, (callSite) => {
-            // Hide the internal call sites.
-            return callSite.fileName !== null && !callSite.fileName.includes('slonik') && !callSite.fileName.includes('next_tick');
-          }),
-          (callSite) => {
-            return stringifyCallSite(callSite);
-          },
-        );
+        stackTrace = [];
+
+        for (const callSite of context.stackTrace) {
+          // Hide the internal call sites.
+          if (callSite.fileName !== null && !callSite.fileName.includes('slonik') && !callSite.fileName.includes('next_tick')) {
+            stackTrace.push(stringifyCallSite(callSite));
+          }
+        }
       }
 
       let values;
 
       if (configuration.logValues) {
-        values = map(query.values, (value) => {
-          if (Buffer.isBuffer(value)) {
-            return '[Buffer ' + value.byteLength + ']';
-          }
+        values = [];
 
-          return value;
-        });
+        for (const value of query.values) {
+          if (Buffer.isBuffer(value)) {
+            values.push('[Buffer ' + value.byteLength + ']');
+          } else {
+            values.push(value);
+          }
+        }
       }
 
       context.log.debug({

@@ -1,11 +1,8 @@
-// @flow
-
 import type {
   QueryContextType,
 } from 'slonik';
 
 export default (): QueryContextType => {
-  // $FlowFixMe
   return {
     connectionId: '1',
     log: {
@@ -17,5 +14,6 @@ export default (): QueryContextType => {
       },
     },
     poolId: '1',
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any;
 };
