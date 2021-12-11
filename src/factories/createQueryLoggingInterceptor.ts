@@ -40,6 +40,10 @@ export const createQueryLoggingInterceptor = (userConfiguration?: UserConfigurat
       }
 
       for (const notice of result.notices) {
+        if (!notice.message) {
+          continue;
+        }
+
         if (isAutoExplainJsonMessage(notice.message)) {
           context.log.info({
             autoExplain: getAutoExplainPayload(notice.message),
