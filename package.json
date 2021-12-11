@@ -57,7 +57,7 @@
   "main": "./dist/src/index.js",
   "name": "slonik-interceptor-query-logging",
   "peerDependencies": {
-    "slonik": ">=25.1.2"
+    "slonik": ">=26.0.0"
   },
   "repository": {
     "type": "git",
