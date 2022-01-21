@@ -1,8 +1,8 @@
 import type {
-  QueryContextType,
+  QueryContext,
 } from 'slonik';
 
-export default (): QueryContextType => {
+export default (): QueryContext => {
   return {
     connectionId: '1',
     log: {
