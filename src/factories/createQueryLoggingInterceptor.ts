@@ -3,7 +3,7 @@ import {
   serializeError,
 } from 'serialize-error';
 import type {
-  InterceptorType,
+  Interceptor,
 } from 'slonik';
 import {
   getAutoExplainPayload,
@@ -25,7 +25,7 @@ const defaultConfiguration = {
   logValues: true,
 };
 
-export const createQueryLoggingInterceptor = (userConfiguration?: UserConfigurationType): InterceptorType => {
+export const createQueryLoggingInterceptor = (userConfiguration?: UserConfigurationType): Interceptor => {
   const configuration = {
     ...defaultConfiguration,
     ...userConfiguration,
