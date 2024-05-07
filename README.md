@@ -8,6 +8,9 @@
 
 Logs [Slonik](https://github.com/gajus/slonik) queries.
 
+> [!WARNING]
+> Deprecated in favor of https://github.com/gajus/slonik monorepo.
+
 ## API
 
 ```ts
